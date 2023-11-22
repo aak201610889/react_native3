@@ -63,6 +63,7 @@ const GetProducts = () => {
             </View>
           </View>
         ))}
+        
       </View>
     </ScrollView>
   );
