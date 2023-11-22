@@ -21,6 +21,7 @@ const CreateProductDetails = () => {
   const [productData, setProductData] = useState<any>([]);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const [Desc, setDesc] = useState("");
 
   const handleImageSelect = (selectedImageUri: string | null) => {
     setImageUri(selectedImageUri);
@@ -56,6 +57,7 @@ const CreateProductDetails = () => {
 
       formData.append('productId', value);
       formData.append('rate', rate);
+      formData.append('description', Desc);
       formData.append('image', {
         uri: imageUri,
         type: 'image/jpeg',
@@ -121,7 +123,14 @@ const CreateProductDetails = () => {
           keyboardType="numeric"
           style={tw`h-12 border border-gray-500 mb-2`}
         />
+        <TextInput
+          placeholder="desc"
+          onChangeText={text => setDesc(text)}
+          value={Desc}
+          style={tw`h-12 border border-gray-500 mb-2`}
+        />
       </View>
+
       <ImageUploader onImageSelect={handleImageSelect} />
       <View style={tw`mx-2 bg-red-300 mt-4`}>
         <Button title="Make POST Request" onPress={handlePostRequest} />

@@ -1,4 +1,12 @@
-import {View, Text, StyleSheet, ActivityIndicator, Image, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Image,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
@@ -6,6 +14,7 @@ import {selectThemeColor} from '../../redux/themeSlice';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import useApi from '../../hooks/fetchApiData';
 import tw from 'twrnc';
+import useDeleteApi from '../../hooks/useDeleteApi';
 
 const GetProducts = () => {
   //theme
@@ -31,6 +40,21 @@ const GetProducts = () => {
     }, [refetch, navigation]),
   );
 
+  //handling the deleteProduct
+  const deleteMutation = useDeleteApi(
+    'http://172.16.69.26:5113/api/Products',
+  );
+  const deleteProduct = (id: any) => {
+    deleteMutation.mutate(id, {
+      onSuccess: () => {
+        console.log('Delete successful');
+      },
+      onError: error => {
+        console.error('Delete failed', error);
+      },
+    });
+  };
+
   if (isLoading) {
     return <ActivityIndicator style={tw`flex-1`} />;
   }
@@ -46,24 +70,29 @@ const GetProducts = () => {
         {data?.data?.map((item: any) => (
           <View
             key={item?.id}
-            style={tw`mb-4 mt-2  w-[48%] border-2  border-red-700  rounded-2`}>
+            style={tw`mb-4 mt-2  w-[48%] border-2  border-red-700  rounded-2 relative`}>
             <Text style={{...tw` m-auto mt-1`, ...styles.text}}>
               {item?.name}
             </Text>
             <Text>description :{item?.description}</Text>
             <Text>price :{item?.price}</Text>
-            <Text>categoryId :{item?.categoryId}</Text>
+            {/* <Text>categoryId :{item?.categoryId}</Text> */}
             <Image
               source={{uri: `data:image/png;base64,${item?.productImage}`}}
               style={tw`h-48`}
             />
-            <View>
-              <Button title='Delete'/>
-              <Button title='Update'/>
-            </View>
+            <TouchableOpacity
+              style={tw`bg-red-800 w-[95%] m-auto rounded-2 h-8 my-2`}>
+              <Text style={tw`text-white m-auto`}>Update</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={tw`absolute right-[-3] top-[-3] bg-red-800 w-8 h-8 rounded-5`}
+              onPress={()=>deleteProduct(item.id)}>
+              <Text style={tw`text-white m-auto`}>X</Text>
+            </TouchableOpacity>
           </View>
         ))}
-        
       </View>
     </ScrollView>
   );

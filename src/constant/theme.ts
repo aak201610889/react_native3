@@ -1,15 +1,7 @@
 // theme.ts
 
-interface Theme {
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  textColor: string;
-  background: string;
-}
-
 // Light Themes
-export const darkGreenTheme : any = {
+export const darkGreenTheme  = {
   primaryColor: '#4CAF50', // Green
   secondaryColor: '#8BC34A', // Light Green
   accentColor: '#CDDC39', // Lime
@@ -20,7 +12,7 @@ export const darkGreenTheme : any = {
   headerText: '#FFFFFF',
 };
 // Dark Themes
-export const lightGreenTheme: any = {
+export const lightGreenTheme = {
   primaryColor: '#388E3C', // Dark Green
   secondaryColor: '#689F38', // Olive
   accentColor: '#AFB42B', // Dark Lime
@@ -34,7 +26,7 @@ export const lightGreenTheme: any = {
 
 
 
-export const lightRedTheme: any = {
+export const lightRedTheme = {
   primaryColor: '#F44336', // Red
   secondaryColor: '#FFCDD2', // Light Red
   accentColor: '#FF5252', // Pink
@@ -45,7 +37,7 @@ export const lightRedTheme: any = {
   background: '#EEEeeE', // Light Peach
 };
 
-export const darkRedTheme: any = {
+export const darkRedTheme = {
   primaryColor: '#D32F2F', // Dark Red
   secondaryColor: '#EF5350', // Red
   accentColor: '#FF1744', // Dark Pink
@@ -67,7 +59,7 @@ export const darkRedTheme: any = {
 
 
 
-export const lightBlueTheme: any = {
+export const lightBlueTheme = {
   primaryColor: '#2196F3', // Blue
   secondaryColor: '#BBDEFB', // Light Blue
   accentColor: '#03A9F4', // Light Blue Accent
@@ -83,7 +75,7 @@ export const lightBlueTheme: any = {
 
 
 
-export const darkYellowTheme: any = {
+export const darkYellowTheme = {
   primaryColor: '#FFA000', // Dark Yellow
   secondaryColor: '#FFC107', // Yellow
   accentColor: '#FFD54F', // Amber
@@ -93,7 +85,7 @@ export const darkYellowTheme: any = {
   headerText: '#fff', // Dark Gray
   background: '#FFA000', // Dark Background
 };
-export const lightYellowTheme: any = {
+export const lightYellowTheme = {
   primaryColor: '#FFA000', // Dark Yellow
   secondaryColor: '#FFC107', // Yellow
   accentColor: '#FFD54F', // Amber

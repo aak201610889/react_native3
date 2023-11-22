@@ -77,6 +77,7 @@ const CreateProduct = () => {
         type: 'image/jpeg',
         name: 'product_image.jpg',
       });
+console.log(formData);
 
       const data = await postApi.mutateAsync({
         url: 'http://172.16.69.26:5113/api/Products',
