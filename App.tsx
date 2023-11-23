@@ -8,7 +8,7 @@ import tw from 'twrnc';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Toast from 'react-native-toast-message';
 import {useTranslation} from 'react-i18next';
-import {showToast} from './src/redux/toastSlice';
+
 import {selectThemeColor} from './src/redux/themeSlice';
 
 // Import your screen components
@@ -23,13 +23,15 @@ import CreateCategory from './src/Screens/private/CreateCategory';
 import CustomDrawer from './src/components/CustomDrawer';
 import {getToken} from './src/services/tokenService';
 import GetProducts from './src/Screens/private/GetProduct';
+import GetProductsClient from './src/Screens/public/GetProductsClient';
+import CreateOrderClient from './src/Screens/public/CreateOrderClient';
+
 
 const Drawer = createDrawerNavigator();
 const queryClient = new QueryClient();
 
 const App = () => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const dispatch = useDispatch();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const token = getToken();
   const {t, i18n} = useTranslation();
@@ -37,6 +39,7 @@ const App = () => {
 
   const toggleSwitch = () => {
     const newLanguage = isEnabled ? 'ar' : 'en';
+
 
     try {
       i18n.changeLanguage(newLanguage);
@@ -46,15 +49,7 @@ const App = () => {
     }
   };
 
-  const showToastHandler = () => {
-    dispatch(
-      showToast({
-        type: 'success',
-        text1: 'Hello',
-        text2: 'This is something 👋',
-      }),
-    );
-  };
+
 
   const styles = StyleSheet.create({
     container: {
@@ -92,7 +87,7 @@ const App = () => {
       paddingHorizontal: 8,
     },
   });
-
+// const navigation = useNavigation();
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
@@ -112,7 +107,7 @@ const App = () => {
               fontWeight: 'bold',
             },
             headerRight: () => (
-              <View style={tw`flex flex-row items-center justify-between w-30`}>
+              <View style={tw`flex flex-row items-center justify-around w-30`}>
                 <FontAwesomeIcon
                   name="globe"
                   size={20}
@@ -120,6 +115,13 @@ const App = () => {
                   color={styles.drawerItemText.color}
                   style={tw`mr-2`}
                 />
+                {/* <FontAwesomeIcon
+                  name="shopping-bag"
+                  size={20}
+                  onPress={() => navigation.navigate('screenName')}
+                  color={styles.drawerItemText.color}
+                  style={tw`mr-2`}
+                /> */}
               </View>
             ),
           }}
@@ -136,14 +138,7 @@ const App = () => {
                 component={CreateProduct}
               />
               <Drawer.Screen name={t('GetProducts')} component={GetProducts} />
-              <Drawer.Screen
-                name={t('logout')}
-                component={() => (
-                  <View>
-                    <Button onPress={showToastHandler} title={t('logout')} />
-                  </View>
-                )}
-              />
+
               <Drawer.Screen name={t('theme')} component={MyDropdownPicker} />
               <Drawer.Screen
                 name={t('GetProductsDetail')}
@@ -152,6 +147,14 @@ const App = () => {
               <Drawer.Screen
                 name={t('CreateProductDetails')}
                 component={() => <CreateProductDetails />}
+              />
+              <Drawer.Screen
+                name={t('GetProductsClient')}
+                component={() => <GetProductsClient />}
+              />
+              <Drawer.Screen
+                name={t('CreateOrderClient')}
+                component={() => <CreateOrderClient />}
               />
             </>
           ) : (

@@ -117,6 +117,16 @@ const CustomDrawer = ({navigation}) => {
           onPress={() => navigateToScreen('GetProductsDetail')}>
           <Text style={styles.drawerItemText}>Get Products Detail</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItem}
+          onPress={() => navigateToScreen('GetProductsClient')}>
+          <Text style={styles.drawerItemText}>Get Products Client</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItem}
+          onPress={() => navigateToScreen('CreateOrderClient')}>
+          <Text style={styles.drawerItemText}>CreateOrderClient</Text>
+        </TouchableOpacity>
       </>
     ) : (
       <>
