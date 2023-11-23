@@ -14,6 +14,7 @@ import {selectThemeColor} from '../../redux/themeSlice';
 import {useSelector} from 'react-redux';
 import useApi from '../../hooks/fetchApiData';
 import tw from 'twrnc';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const GetProductsDetail = () => {
   const themeColor = useSelector(selectThemeColor);
@@ -49,11 +50,17 @@ const GetProductsDetail = () => {
 if (!data.data || data.data.length === 0) {
   return (
     <View>
-      <Text>There are no product details</Text>
-      <Button
-        onPress={() => navigation.navigate('CreateProductDetails')}
-        title="Go to CreateProductDetails"
-      />
+      <TouchableOpacity
+        style={{
+          ...tw` w-98% m-auto mt-10`,
+          backgroundColor: themeColor.background,
+        }}
+        onPress={() => navigation.navigate('CreateProductDetails')}>
+        <Text style={{...tw` m-auto my-2 `, color: themeColor.textColor}}>
+          Create Product
+        </Text>
+      </TouchableOpacity>
+  
     </View>
   );
 }

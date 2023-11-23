@@ -14,6 +14,9 @@ import {Dropdown} from 'react-native-element-dropdown';
 import ImageUploader from '../../components/ImageUploader';
 import useApi from '../../hooks/fetchApiData';
 import usePostApi from '../../hooks/postData';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { selectThemeColor } from '../../redux/themeSlice';
 
 const CreateProductDetails = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -22,7 +25,7 @@ const CreateProductDetails = () => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [Desc, setDesc] = useState("");
-
+  const themeColor = useSelector(selectThemeColor);
   const handleImageSelect = (selectedImageUri: string | null) => {
     setImageUri(selectedImageUri);
   };
@@ -132,9 +135,16 @@ const CreateProductDetails = () => {
       </View>
 
       <ImageUploader onImageSelect={handleImageSelect} />
-      <View style={tw`mx-2 bg-red-300 mt-4`}>
-        <Button title="Make POST Request" onPress={handlePostRequest} />
-      </View>
+      <TouchableOpacity
+        style={{
+          ...tw` w-98% m-auto mt-10`,
+          backgroundColor: themeColor.background,
+        }}
+        onPress={handlePostRequest}>
+        <Text style={{...tw` m-auto my-2 `, color: themeColor.textColor}}>
+          Create Product
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };

@@ -21,7 +21,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
 import usePostApi from '../../hooks/postData';
 import ImageUploader from '../../components/ImageUploader';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import ToastComponent from '../../components/ToastComponent';
 const CreateProduct = () => {
   const themeColor = useSelector(selectThemeColor);
@@ -112,14 +112,7 @@ console.log(formData);
 
   return (
     <ScrollView style={tw`mt-4`}>
-      <Text
-        style={
-          themeColor === 'light'
-            ? tw` mt-8 mb-4  text-3xl pt-2 m-auto  text-blue-300 mb-4`
-            : tw` mt-8 mb-4  text-3xl pt-2 m-auto  text-blue-400 mb-4`
-        }>
-        Product
-      </Text>
+     
       <View style={tw`mt-4 mx-2`}>
         <Dropdown
           style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
@@ -163,9 +156,11 @@ console.log(formData);
       <View style={tw`mt-5 h-35`}>
         <ImageUploader onImageSelect={handleImageSelect} />
       </View>
-      <View style={tw`mx-2 bg-red-300 mt-11`}>
-        <Button title="Make POST Request" onPress={handlePostRequest} />
-      </View>
+      <TouchableOpacity
+        style={{...tw` w-98% m-auto mt-10`, backgroundColor: themeColor.background}}
+        onPress={handlePostRequest}>
+        <Text style={{...tw` m-auto my-2 `,color:themeColor.textColor}}>Create Product</Text>
+      </TouchableOpacity>
       <Toast config={toastConfig} />
     </ScrollView>
   );
