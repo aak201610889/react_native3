@@ -10,6 +10,7 @@ const OrderSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: any) => {
+    
       const isItemInOrder = state.order.some((item: any) =>
         item.orderDetails.some(
           (detail: any) => detail?.product?.id === action.payload.id,
@@ -25,32 +26,37 @@ const OrderSlice = createSlice({
       }
     },
 
-    sumItem: (state, action: any) => {
-      console.log(action?.payload?.orderDetails);
+   sumItem: (state, action: any) => {
+  const itemId = action.payload.id;
+  const existingItemIndex = state.order.findIndex((item: any) =>
+    item.orderDetails.some((detail: any) => detail?.product?.id === itemId)
+  );
 
-      const existingOrder = state.order.find((item: any) =>
-        item.orderDetails.some(
-          (detail: any) => detail?.product?.id === action.payload.id,
-        ),
-      );
-
-      if (existingOrder) {
-        const existingDetail = existingOrder.orderDetails.find(
-          (detail: any) => detail?.product?.id === action.payload.id,
-        );
-
-        if (existingDetail) {
-          console.log('Existing item id:', existingDetail);
-          existingDetail.orderDetails.qty++;
-          console.log('Item quantity updated');
-        } else {
-          console.log('Item not found in orderDetails');
+  if (existingItemIndex !== -1) {
+    // If the item is already in the order, update its quantity
+    state.order[existingItemIndex].orderDetails = state.order[existingItemIndex].orderDetails.map(
+      (detail: any) => {
+        if (detail?.product?.id === itemId) {
+          return {
+           
+            qty: detail.qty + 1,
+        
+            
+          };
         }
-      } else {
-        console.log('Item not found in orderDetails');
+        console.log('Updated quantity for existing item:', detail?.qty);
+        return detail?.qty;
       }
-    },
-
+    );
+  } else {
+    // If the item is not in the order, add it with a quantity of 1
+    state.order.unshift({
+      orderDetails: [{ quantity: 1, product: { ...action.payload } }],
+    });
+    console.log('Added new item to order with quantity 1:', itemId);
+  }
+}
+,
     // let res = state.order?.orderDetails?.product?.filter((or: any) => {
     //   if (value === or?.id) or.orderDetails.qty++;
 

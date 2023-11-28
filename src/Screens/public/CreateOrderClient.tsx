@@ -36,7 +36,7 @@ const CreateOrderClient = () => {
         {shope?.order?.map((i: any, index: any) => (
           <ScrollView key={index}>
             {i?.orderDetails?.map((item: any, index: any) => (
-              <View key={index}>
+              <ScrollView key={index}>
                 <Text>{item.qty}</Text>
                 <Image
                   source={{
@@ -44,7 +44,7 @@ const CreateOrderClient = () => {
                   }}
                   style={tw`h-48`}
                 />
-              </View>
+              </ScrollView>
             ))}
             <Button title="ee" onPress={() => AddToOrder(i)} />
           </ScrollView>

@@ -8,7 +8,7 @@ import tw from 'twrnc';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Toast from 'react-native-toast-message';
 import {useTranslation} from 'react-i18next';
-
+import {I18nManager} from 'react-native';
 import {selectThemeColor} from './src/redux/themeSlice';
 
 // Import your screen components
@@ -44,6 +44,7 @@ const App = () => {
     try {
       i18n.changeLanguage(newLanguage);
       setIsEnabled(!isEnabled);
+      I18nManager.forceRTL(newLanguage=='ar');
     } catch (error) {
       console.error('Error changing language:', error);
     }
